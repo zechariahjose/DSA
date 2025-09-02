@@ -1,0 +1,132 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 10
+
+typedef struct {
+    int elem[MAX];
+    int count;
+} Etype, *EPtr;
+
+
+void initialize(EPtr L) {
+    L->count = 0;
+}
+
+void insertPos(EPtr L, int data, int position) {
+    if (L->count >= MAX) {
+        printf("List is full\n");
+        return;
+    }
+    if (position < 0 || position > L->count) {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (int i = L->count; i > position; i--) {
+        L->elem[i] = L->elem[i - 1];
+    }
+
+    L->elem[position] = data;
+    L->count++;
+}
+
+void deletePos(EPtr L, int position) {
+    if (position < 0 || position >= L->count) {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (int i = position; i < L->count - 1; i++) {
+        L->elem[i] = L->elem[i + 1];
+    }
+    L->count--;
+}
+
+int locate(EPtr L, int data) {
+    for (int i = 0; i < L->count; i++) {
+        if (L->elem[i] == data) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int retrieve(EPtr L, int position) {
+    if (position < 0 || position >= L->count) {
+        printf("Invalid position\n");
+        return -1;
+    }
+    return L->elem[position];
+}
+
+void insertSorted(EPtr L, int data) {
+    if (L->count >= MAX) {
+        printf("List is full\n");
+        return;
+    }
+
+    int pos = 0;
+    while (pos < L->count && L->elem[pos] < data) {
+        pos++;
+    }
+
+    for (int i = L->count; i > pos; i--) {
+        L->elem[i] = L->elem[i - 1];
+    }
+
+    L->elem[pos] = data;
+    L->count++;
+}
+
+
+void display(EPtr L) {
+    for (int i = 0; i < L->count; i++) {
+        printf("%d", L->elem[i]);
+        if (i < L->count - 1) {
+            printf(", ");
+        }
+    }
+    printf("\n");
+}
+
+
+void makeNULL(EPtr L) {
+    L->count = 0;
+}
+
+
+int main() {
+    Etype myList;
+    EPtr L = &myList;
+
+    initialize(L);
+
+    insertPos(L, 90, 0);
+    insertPos(L, 20, 1);
+    insertPos(L, 60, 2);
+    insertPos(L, 10, 3);
+    insertPos(L, 50, 4);
+
+    printf("List after insertions: ");
+    display(L);
+
+    deletePos(L, 1);
+    printf("List after deleting position 1: ");
+    display(L);
+
+    int loc = locate(L, 10);
+    printf("Location of 10: %d\n", loc);
+
+    printf("Retrieve element at pos 2: %d\n", retrieve(L, 2));
+
+    insertSorted(L, 30);
+    printf("List after sorted insert of 30: ");
+    display(L);
+
+    makeNULL(L);
+    printf("List after makeNULL: ");
+    display(L);
+
+    return 0;
+}
