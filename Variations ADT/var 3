@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LENGTH 10
+
+typedef struct {
+    int *elemPtr;
+    int count;
+    int max;
+    
+}List;
+
+List initialize(List L){
+    L.elemPtr = malloc(LENGTH*sizeof(int));
+    L.max = LENGTH;
+    L.count = 0;
+    
+    return L;
+}
+
+List insertPos(List L, int data, int position){
+    
+    
+    return 
+}
+List deletePos(List L, int position);
+int locate(List L, int data);
+List  insertSorted(List L, int data);
+void display(List L);
+List resize(List L);
+
+
+int main() {
+    Etype myList;
+    EPtr L = &myList;
+
+    initialize(L);
+
+    insertPos(L, 90, 0);
+    insertPos(L, 20, 1);
+    insertPos(L, 60, 2);
+    insertPos(L, 10, 3);
+    insertPos(L, 50, 4);
+
+    printf("List after insertions: ");
+    display(L);
+
+    deletePos(L, 1);
+    printf("List after deleting position 1: ");
+    display(L);
+
+    int loc = locate(L, 10);
+    printf("Location of 10: %d\n", loc);
+
+    printf("Retrieve element at pos 2: %d\n", retrieve(L, 2));
+
+    insertSorted(L, 30);
+    printf("List after sorted insert of 30: ");
+    display(L);
+
+    makeNULL(L);
+    printf("List after makeNULL: ");
+    display(L);
+
+    return 0;
+}
