@@ -1,0 +1,146 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LENGTH 10
+
+typedef struct node{
+    int data;
+    struct node* next;
+} Node;
+
+typedef struct{
+    Node *head;
+    int count;
+}List;
+    
+    
+    
+List* initialize(){
+    List *A = malloc(sizeof(Lis));
+    
+    if(A == NULL){
+        printf("allocation was unsuccessful");
+        return NULL;
+    }
+    
+    A->head = NULL;
+    A->count = 0;
+    
+    return A;
+}
+
+
+void empty(List *list){
+    List temp;
+    
+    while(list != NULL){
+        temp = list;
+        list = list->head->next;
+        free(temp);
+    }
+    
+    list->head = NULL;
+    list->count = 0;
+    
+}
+
+
+void insertFirst(List *list, int data){
+    List *A = malloc(sizeof(List));
+    
+    A->head->data = data;
+    A->head->next = NULL:
+    
+    if(list = NULL){
+        list = A;
+        return;
+    }
+    list = A;
+
+}
+
+
+void insertLast(List *list, int data){
+    List *A = malloc(sizeof(List));
+    
+    A->head->data = data;
+    A->head->next = NULL;
+    
+    if(list = NULL){
+        list = A;
+        return;
+    }
+    List *trav = *list;
+    
+    while(trav != NULL){
+        trav = trav->head->next;
+    }
+    list = A;
+    
+}
+
+
+void insertPos(List *list, int data, int index){
+    List *A = malloc(sizeof(List));    
+    A->head->data = data;
+    A->head->next = NULL:
+    
+    List *trav = *list;
+    for(int i = 0; i != index && trav != NULL; i++){
+        trav = trav->head->next;
+    }
+    
+    list = A;
+    
+}
+
+void deleteStart(List *list);
+void deleteLast(List *list);
+void deletePos(List *list, int index);
+int retrieve(List *list, int index);
+int locate(List *list, int data);
+
+
+void display(List *list){
+    List *trav = list;
+        
+    while(trav != list){
+        printf("%d -> ", trav->head->data);
+        trav = trav->head->next;
+    }
+    printf("NULL\n");
+    
+}
+
+
+
+int main() {
+    List myList = initialize((List){0}); 
+    myList = insertPos(myList, 90, 0);
+    myList = insertPos(myList, 20, 1);
+    myList = insertPos(myList, 60, 2);
+    myList = insertPos(myList, 10, 3);
+    myList = insertPos(myList, 50, 4);
+
+    printf("List after insertions: ");
+    display(myList);
+
+    myList = deletePos(myList, 1);
+    printf("List after deleting position 1: ");
+    display(myList);
+
+    int loc = locate(myList, 10);
+    printf("Location of 10: %d\n", loc);
+
+    printf("Retrieve element at pos 2: %d\n", retrieve(myList, 2));
+
+    myList = insertSorted(myList, 30);
+    printf("List after sorted insert of 30: ");
+    display(myList);
+
+    makeNULL(myList);
+    printf("List after makeNULL: ");
+    display(myList);
+
+    return 0;
+}
