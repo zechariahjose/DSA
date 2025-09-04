@@ -16,7 +16,17 @@ typedef struct{
     
     
 List* initialize(){
-    List *A = malloc(sizeof(Lis));
+    
+    
+//     Allocate memory for a new List struct using malloc
+// If the allocation was unsuccessful, return NULL
+// Set the head pointer of the List to NULL
+// Set the count of the List to 0
+// Return the pointer to the newly created List
+
+    
+    
+    List *A = malloc(sizeof(List));
     
     if(A == NULL){
         printf("allocation was unsuccessful");
@@ -31,11 +41,20 @@ List* initialize(){
 
 
 void empty(List *list){
-    List temp;
     
-    while(list != NULL){
-        temp = list;
-        list = list->head->next;
+    
+//     Iterate through the nodes and free each one
+// Set head to NULL
+// Set count to 0
+
+    
+    
+    
+    Node temp;
+    
+    while(list->head != NULL){
+        temp = list->head;
+        list->head = list->head->next;
         free(temp);
     }
     
@@ -46,62 +65,196 @@ void empty(List *list){
 
 
 void insertFirst(List *list, int data){
-    List *A = malloc(sizeof(List));
     
-    A->head->data = data;
-    A->head->next = NULL:
+//     Allocate memory for a new node
+// Set the data of the new node to the provided data
+// Set the next pointer of the new node to the current head of the list
+// Update the list's head pointer to point to the new node
+// Increment the list's count
+
     
-    if(list = NULL){
-        list = A;
+    
+    Node *A = malloc(sizeof(Node));
+    
+    A->data = data;
+    A->next = NULL:
+    
+    if(list->head = NULL){
+        list->head = A;
         return;
     }
-    list = A;
+    list->head = A;
 
 }
 
 
 void insertLast(List *list, int data){
-    List *A = malloc(sizeof(List));
     
-    A->head->data = data;
-    A->head->next = NULL;
+//     Allocate memory for a new node
+// Set the data of the new node to the provided data
+// Set the next pointer of the new node to NULL
+// If the list's head is NULL (the list is empty), set the head to the new node
+// If the list is not empty, create a “current” pointer and initialize it with the head
+// Traverse the list until current->next is NULL
+// Set current->next to the new node
+// Increment the list's count
+
     
-    if(list = NULL){
-        list = A;
+    Node *A = malloc(sizeof(Node));
+    
+    A->data = data;
+    A->next = NULL;
+    
+    if(list->head = NULL){
+        list->head = A;
         return;
     }
-    List *trav = *list;
+    Node *trav = list->head;
     
     while(trav != NULL){
-        trav = trav->head->next;
+        trav = trav->next;
     }
-    list = A;
+    list->head = A;
     
 }
 
 
 void insertPos(List *list, int data, int index){
-    List *A = malloc(sizeof(List));    
-    A->head->data = data;
-    A->head->next = NULL:
     
-    List *trav = *list;
+//     Index must be valid (less than list->count)
+// If index is 0, call insertFirst()
+// If index is equal to list->count, call insertLast()
+// Otherwise, allocate memory for a new Node
+// Set the data of the new node
+// Create a “current” pointer and initialize it to the head
+// Iterate index - 1 times to find the node just before the insertion point
+// Set the new node's next pointer to current->next
+// Set current->next to the new node
+// Increment the list's count
+
+    
+    
+    Node *A = malloc(sizeof(Node));    
+    A->data = data;
+    A->next = NULL:
+    
+    Node *trav = list->head;
     for(int i = 0; i != index && trav != NULL; i++){
-        trav = trav->head->next;
+        trav = trav->next;
     }
     
     list = A;
     
 }
 
-void deleteStart(List *list);
-void deleteLast(List *list);
-void deletePos(List *list, int index);
-int retrieve(List *list, int index);
-int locate(List *list, int data);
+void deleteStart(List *list){
+    
+    
+//     Create a “current” pointer and set it to the head
+// Update the list's head to current->next
+// Free the memory for current
+// Decrement the list's count
+
+    
+        
+    if(*list == NULL){
+         printf("List is empty\n");
+         return;
+    }else{
+        Node temp = list->head;
+        list->head = list->head->next;
+        free(temp);
+    }
+    
+}
+
+void deleteLast(List *list){
+//     If the list has only one node, free the head, set the head to NULL, and decrement the count
+// Otherwise, create a “current” pointer and initialize it to the list's head
+// Use a loop that runs list->count - 2 times to place current at the second to the last node
+// Free the memory of the last node
+// Set current->next to NULL
+// Decrement the list's count
+
+    
+    
+    
+}
+
+void deletePos(List *list, int index){
+//     If index is 0, call removeStart()
+// Otherwise, create a “current” pointer, and initialize it to the head
+// Iterate index - 1 times to find the node just before the one to be removed
+// Create a “temp” pointer and set it to current->next
+// Set current->next to temp->next
+// Free the memory for temp
+// Decrement the list's count
+
+    
+    
+    
+    Node *trav = list->head;
+    
+    if(index == 0 && trav != NULL){
+        Node temp1 = trav;
+        trav = trav->next;
+        free(temp);
+    }
+    
+    for(int i = 0; i<index && trav != NULL; i++){
+        trav = trav->next;
+    }
+    Node temp = trav->next;
+    trav->next = trav->next->next;
+    free(temp);
+    
+}
+
+int retrieve(List *list, int index){
+//     Index must be valid (less than list->count)
+// Create a “current” pointer and initialize it to the head
+// Iterate index times, moving current forward
+// Return the data from current
+
+    
+    
+}
+
+
+int locate(List *list, int data){
+    
+//     If the list's head is NULL, return -1
+// Create a “current” pointer and initialize it to the head
+// Initialize an integer variable “index” to 0
+// Iterate as long as current is not NULL
+// If there's a match, return index
+// If there's no match, move current to its next node and increment index by 1
+// Return the index or -1 if not found
+
+    
+    
+    List *trav = *list;
+    
+    for(int i = 0; i < trav->count && trav != NULL; i++){
+        if(i == trav->head->data){
+            return i;
+        }
+    }
+        
+    return -1;
+}
 
 
 void display(List *list){
+    
+//     Create a “current” pointer and initialize it to the head
+// Begin a loop that continues as long as current is not NULL
+// Inside the loop, print the data from current 
+// Move current to current->next
+
+
+    
+    
     List *trav = list;
         
     while(trav != list){
@@ -144,3 +297,227 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// #define LENGTH 10
+
+// typedef struct node {
+//     int data;
+//     struct node* next;
+// } Node;
+
+// typedef struct {
+//     Node *head;
+//     int count;
+// } List;
+
+// List* initialize() {
+//     List *A = malloc(sizeof(List));
+//     if (A == NULL) {
+//         printf("Memory allocation failed.\n");
+//         return NULL;
+//     }
+//     A->head = NULL;
+//     A->count = 0;
+//     return A;
+// }
+
+// void empty(List *list) {
+//     Node *temp;
+//     while (list->head != NULL) {
+//         temp = list->head;
+//         list->head = list->head->next;
+//         free(temp);
+//     }
+//     list->count = 0;
+// }
+
+// void insertFirst(List *list, int data) {
+//     Node *newNode = malloc(sizeof(Node));
+//     if (newNode == NULL) {
+//         printf("Memory allocation failed.\n");
+//         return;
+//     }
+//     newNode->data = data;
+//     newNode->next = list->head;
+//     list->head = newNode;
+//     list->count++;
+// }
+
+// void insertLast(List *list, int data) {
+//     Node *newNode = malloc(sizeof(Node));
+//     if (newNode == NULL) {
+//         printf("Memory allocation failed.\n");
+//         return;
+//     }
+//     newNode->data = data;
+//     newNode->next = NULL;
+
+//     if (list->head == NULL) {
+//         list->head = newNode;
+//     } else {
+//         Node *trav = list->head;
+//         while (trav->next != NULL) {
+//             trav = trav->next;
+//         }
+//         trav->next = newNode;
+//     }
+//     list->count++;
+// }
+
+// void insertPos(List *list, int data, int index) {
+//     if (index < 0 || index > list->count) {
+//         printf("Index out of bounds.\n");
+//         return;
+//     }
+//     if (index == 0) {
+//         insertFirst(list, data);
+//     } else if (index == list->count) {
+//         insertLast(list, data);
+//     } else {
+//         Node *newNode = malloc(sizeof(Node));
+//         if (newNode == NULL) {
+//             printf("Memory allocation failed.\n");
+//             return;
+//         }
+//         newNode->data = data;
+//         Node *trav = list->head;
+//         for (int i = 0; i < index - 1; i++) {
+//             trav = trav->next;
+//         }
+//         newNode->next = trav->next;
+//         trav->next = newNode;
+//         list->count++;
+//     }
+// }
+
+// void deleteStart(List *list) {
+//     if (list->head == NULL) {
+//         printf("List is empty.\n");
+//         return;
+//     }
+//     Node *temp = list->head;
+//     list->head = list->head->next;
+//     free(temp);
+//     list->count--;
+// }
+
+// void deleteLast(List *list) {
+//     if (list->head == NULL) {
+//         printf("List is empty.\n");
+//         return;
+//     }
+//     if (list->head->next == NULL) {
+//         free(list->head);
+//         list->head = NULL;
+//     } else {
+//         Node *trav = list->head;
+//         while (trav->next != NULL && trav->next->next != NULL) {
+//             trav = trav->next;
+//         }
+//         free(trav->next);
+//         trav->next = NULL;
+//     }
+//     list->count--;
+// }
+
+// void deletePos(List *list, int index) {
+//     if (index < 0 || index >= list->count) {
+//         printf("Index out of bounds.\n");
+//         return;
+//     }
+//     if (index == 0) {
+//         deleteStart(list);
+//     } else {
+//         Node *trav = list->head;
+//         for (int i = 0; i < index - 1; i++) {
+//             trav = trav->next;
+//         }
+//         Node *temp = trav->next;
+//         trav->next = trav->next->next;
+//         free(temp);
+//         list->count--;
+//     }
+// }
+
+// int retrieve(List *list, int index) {
+//     if (index < 0 || index >= list->count) {
+//         printf("Index out of bounds.\n");
+//         return -1;
+//     }
+//     Node *trav = list->head;
+//     for (int i = 0; i < index; i++) {
+//         trav = trav->next;
+//     }
+//     return trav->data;
+// }
+
+// int locate(List *list, int data) {
+//     Node *trav = list->head;
+//     int index = 0;
+//     while (trav != NULL) {
+//         if (trav->data == data) {
+//             return index;
+//         }
+//         trav = trav->next;
+//         index++;
+//     }
+//     return -1;
+// }
+
+// void display(List *list) {
+//     Node *trav = list->head;
+//     while (trav != NULL) {
+//         printf("%d -> ", trav->data);
+//         trav = trav->next;
+//     }
+//     printf("NULL\n");
+// }
+
+// int main() {
+//     List *myList = initialize();
+//     insertPos(myList, 90, 0);
+//     insertPos(myList, 20, 1);
+//     insertPos(myList, 60, 2);
+//     insertPos(myList, 10, 3);
+//     insertPos(myList, 50, 4);
+
+//     printf("List after insertions: ");
+//     display(myList);
+
+//     deletePos(myList, 1);
+//     printf("List after deleting position 1: ");
+//     display(myList);
+
+//     int loc = locate(myList, 10);
+//     printf("Location of 10: %d\n", loc);
+
+//     printf("Retrieve element at pos 2: %d\n", retrieve(myList, 2));
+
+//     empty(myList);
+//     printf("List after emptying: ");
+//     display(myList);
+
+//     return 0;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
