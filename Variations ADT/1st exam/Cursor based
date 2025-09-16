@@ -1,0 +1,62 @@
+#include <stdio.h>
+#define MAX 10
+#define NULL_PTR -1
+
+typedef struct {
+    int data;
+    int next;
+} Node;
+
+Node cursorSpace[MAX];
+int freeList = 0;
+
+// Initialize cursor space
+void initCursor() {
+    for (int i = 0; i < MAX - 1; i++) {
+        cursorSpace[i].next = i + 1;
+    }
+    cursorSpace[MAX - 1].next = NULL_PTR;
+    freeList = 0;
+}
+
+// Allocate node
+int allocateNode() {
+    if (freeList == NULL_PTR) return NULL_PTR;
+    int p = freeList;
+    freeList = cursorSpace[freeList].next;
+    return p;
+}
+
+// Free node
+void freeNode(int p) {
+    cursorSpace[p].next = freeList;
+    freeList = p;
+}
+
+// Insert at front
+int insertFront(int head, int value) {
+    int p = allocateNode();
+    if (p == NULL_PTR) return head;
+    cursorSpace[p].data = value;
+    cursorSpace[p].next = head;
+    return p;
+}
+
+// Traverse
+void traverse(int head) {
+    for (int p = head; p != NULL_PTR; p = cursorSpace[p].next) {
+        printf("%d -> ", cursorSpace[p].data);
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    initCursor();
+    int head = NULL_PTR;
+
+    head = insertFront(head, 10);
+    head = insertFront(head, 20);
+    head = insertFront(head, 30);
+
+    traverse(head);
+}
