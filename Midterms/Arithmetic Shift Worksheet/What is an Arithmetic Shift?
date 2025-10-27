@@ -1,0 +1,45 @@
+What is an Arithmetic Shift?
+An arithmetic shift is a bitwise operation that moves the bits of a number to the left or right. It's used for multiplication and division by powers of two. The key difference between an arithmetic shift and a logical shift lies in how they handle the sign bit.
+
+
+      Arithmetic Right Shift (>>): This operation shifts all bits to the right. The most significant bit (MSB), or sign bit, is copied to the new empty positions on the left. This preserves the sign of the number.
+          For positive numbers, the sign bit is 0, so 0s are shifted in from the left.
+          For negative numbers, the sign bit is 1, so 1s are shifted in from the left.
+          Each right shift by one position is equivalent to dividing by 2, rounding down (towards negative infinity). For example, -5 >> 1 is -3.
+      Arithmetic Left Shift (<<): This operation shifts all bits to the left. The least significant bit (LSB) is always filled with a 0. The bits that are shifted off the left end are discarded.
+          Each left shift by one position is equivalent to multiplying by 2. This is the same as a logical left shift.
+
+
+  Worksheet
+    Part 1
+      How does an arithmetic right shift differ from a logical right shift for a negative number?
+      What is the main purpose of using arithmetic shifts in programming?
+      Why is the left shift operation (<<) the same for both arithmetic and logical shifts?
+    Part 2
+      For each problem, determine the result of the arithmetic shift operation. Assume a 16-bit signed integer unless otherwise specified.
+          int x = 10; int result = x << 2; What is the value of result?
+          int y = -16; int result = y >> 3; What is the value of result?
+          int a = 127; int result = a << 1; What is the value of result? (Hint: Consider the effect of overflow on a signed integer).
+          int b = -20; int result = b >> 2; What is the value of result?
+          int c = 100; int d = 3; int result = c >> d; What is the value of result?
+    Part 3
+      Write a C program to solve the following problem.
+      Problem: Write a function divideByPowerOfTwo(int num, int power) that uses the right shift operator to divide num by the power of 2. The function should handle both positive and negative numbers correctly.
+      Example usage:
+
+
+#include <stdio.h>
+
+int divideByPowerOfTwo(int num, int power) {
+    // Your code here
+}
+
+int main() {
+    printf("100 divided by 8 is: %d\n", divideByPowerOfTwo(100, 3));
+    printf("-100 divided by 8 is: %d\n", divideByPowerOfTwo(-100, 3));
+    return 0;
+}
+
+  Part 4
+    Explain why x >> 1 is not always equal to x / 2 for a negative number x in C. Provide a specific example to illustrate your point.
+
