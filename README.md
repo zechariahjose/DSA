@@ -1,2 +1,2 @@
 # DSA
-Activities & reviewer
+Activities & notes
